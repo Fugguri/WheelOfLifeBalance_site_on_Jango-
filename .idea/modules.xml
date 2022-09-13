@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Async.iml" filepath="$PROJECT_DIR$/.idea/Async.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Wolb/.idea/Wolb_on_Jango.iml" filepath="$PROJECT_DIR$/../Wolb/.idea/Wolb_on_Jango.iml" />
     </modules>
   </component>
 </project>
