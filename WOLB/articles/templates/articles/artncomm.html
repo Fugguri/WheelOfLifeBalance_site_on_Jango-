@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{art.article_title}}</title>
+</head>
+<body>
+<h1>{{art.article_title}}</h1>
+
+{{art.article_text}}
+<ul>
+{% for comment in comm%}
+    <li>{{ comment.author_name }}</li>
+    {{ comment.comment_text }}
+{% endfor %}
+</ul>
+
+<div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+  <label for="floatingTextarea">Comments</label>
+</div>
+
+</body>
+</html>

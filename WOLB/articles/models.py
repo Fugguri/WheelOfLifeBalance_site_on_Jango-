@@ -1,11 +1,16 @@
+import datetime
 from django.db import models
+from django.utils import timezone
 
 
 class Article(models.Model):
-    
-    article_title = models.CharField('Название статьи', max_length=200)
-    article_text = models.TextField('Текст статьи')
-    pub_date = models.DateTimeField('Дата публикации')
+    article_title = models.CharField(verbose_name='Название статьи', max_length=200)
+    article_text = models.TextField( blank=True, verbose_name='Текст статьи')
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    redact_date = models.DateTimeField(auto_now=True, verbose_name="Отредактировано")
+    photo = models.ImageField(upload_to='photo/%Y/%m/%d/', verbose_name="Фото", blank=True)
+    is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
+    category = models.ForeignKey("Category", on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.article_title
@@ -13,6 +18,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = "Статьи"
+        # ordering = ["-pub_date"]
 
 
 class Comment(models.Model):
@@ -26,4 +32,16 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+        ordering = ['article']
 
+
+class Category(models.Model):
+    title = models.CharField(max_length=70, db_index=True, verbose_name='Наименование категории')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        ordering = ['title']
