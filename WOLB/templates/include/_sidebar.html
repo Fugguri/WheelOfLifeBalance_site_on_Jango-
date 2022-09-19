@@ -1,0 +1,19 @@
+{% load article_tags %}
+<div class="col-md-4">
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Выбор категории
+        </button>
+        <ul class="dropdown-menu">
+            {% get_list_categories as categories%}
+            {%for item in categories %}
+            <li><a class="dropdown-item" href="{% url 'categories' item.id %}">{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% comment %}
+    {% show_categories %}
+{% endcomment %}

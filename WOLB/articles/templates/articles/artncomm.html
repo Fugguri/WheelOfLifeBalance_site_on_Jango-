@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{art.article_title}}</title>
-</head>
-<body>
-<h1>{{art.article_title}}</h1>
+{% extends 'base.html' %}
 
-{{art.article_text}}
-<ul>
-{% for comment in comm%}
-    <li>{{ comment.author_name }}</li>
-    {{ comment.comment_text }}
-{% endfor %}
-</ul>
+{% block title %}
+{{ block.super }} | {{ article.article_title }}
+{% endblock %}
 
-<div class="form-floating">
-  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-  <label for="floatingTextarea">Comments</label>
-</div>
+{% block content %}
+        <div class="card">
+            <h2>{{article.article_title}}</h2>
+            <h5>Дата публикации : {{article.pub_date}}</h5>
+            <div class="fakeimg" style="height:200px;">Image</div>
+            <p>Дата последней редакции: {{article.redact_date}}</p>
+            <p>{{article.article_text}}</p>
+        </div>
+        <ul>
+            {% for comment in comm%}
+            <li>{{ comment.author_name }}</li>
+            {{ comment.comment_text }}
 
-</body>
-</html>
+            {% endfor %}
+        </ul>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Comments</label>
+        </div>
+    {% endblock %}

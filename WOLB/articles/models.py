@@ -1,6 +1,5 @@
-import datetime
 from django.db import models
-from django.utils import timezone
+from django.urls import reverse
 
 
 class Article(models.Model):
@@ -12,13 +11,16 @@ class Article(models.Model):
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
     category = models.ForeignKey("Category", on_delete=models.PROTECT, null=True)
 
+    def get_absolute_url(self):
+        return reverse('article', kwargs={'article_id': self.pk})
+
     def __str__(self):
         return self.article_title
 
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = "Статьи"
-        # ordering = ["-pub_date"]
+    # ordering = ["-pub_date"]
 
 
 class Comment(models.Model):
@@ -37,6 +39,9 @@ class Comment(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=70, db_index=True, verbose_name='Наименование категории')
+
+    def get_absolute_url(self):
+        return reverse('categories', kwargs={'category_id': self.pk})
 
     def __str__(self):
         return self.title

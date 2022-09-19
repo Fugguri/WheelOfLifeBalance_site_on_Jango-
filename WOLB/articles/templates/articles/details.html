@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{art.article_title}}</title>
-</head>
-<body>
-<h1>{{art.article_title}}</h1>
+{% extends 'base.html' %}
 
-{{art.article_text}}
+{% block title %}
+{{ block.super }} | {{ category.title }}
+{% endblock %}
+{% block content %}
 
+<div class="card">
+    <h2>{{article.article_title}}</h2>
+    <h5>Дата публикации : {{article.pub_date}}</h5>
+    <div class="fakeimg" style="height:200px;">Image</div>
+    <p>Дата последней редакции: {{article.redact_date}}</p>
+    <p>{{article.article_text}}</p>
+</div>
 
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }} | {{ category.title }}
+{% endblock %}
+
+{% block content%}
+    {%if articles%}
+    {%for article in articles%}
+    <div class="card">
+        <h2>{{article.article_title}}</h2>
+        <h5>Дата публикации : {{article.pub_date}}</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Дата последней редакции: {{article.redact_date}}</p>
+        <p>{{article.article_text|linebreaks}}</p>
+        <a href="{% url 'article and comments' article.id %}" class="btn btn-primary" align="centre">Читать</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+{% endblock %}
