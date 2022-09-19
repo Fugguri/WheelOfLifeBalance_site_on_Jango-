@@ -1,5 +1,5 @@
 from django import template
-from ..models import Category
+from ..models import Category, Comment
 
 register = template.Library()
 
@@ -13,3 +13,8 @@ def get_categories():
 def show_categories():
     categories = Category.objects.all()
     return {'categories': categories}
+
+
+@register.simple_tag(name='get_all_comments')
+def get_all_comments():
+    return Comment.objects.all()

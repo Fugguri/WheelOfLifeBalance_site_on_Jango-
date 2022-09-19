@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }} | {{ category.title }}
+{% endblock %}
+{% block content %}
+
+<div class="card">
+    {{get_all_comments as comments}}
+    {% for item in comments %}
+        {{comment.author_name }}
+        <h2>{{comments.comment_text}}</h2>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <style>
@@ -45,11 +46,12 @@
             color: #d7621d;
         }
 
-        .dropdown{
+        .dropdown {
             background-color: white;
             padding: 20px;
             margin-top: 20px
         }
+
         /* Create two unequal columns that floats next to each other */
         /* Left column */
         .leftcolumn {
@@ -73,21 +75,21 @@
         }
 
         /* Add a card effect for articles */
-        .card {
+        .card-2 {
             background-color: white;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 10px;
+            margin-top: 10px;
         }
 
         /* Clear floats after the columns */
-        .row:after {
+        .row-1:after {
             content: "";
             display: table;
             clear: both;
         }
 
         /* Footer */
-        .footer {
+        .footer-1 {
             padding: 20px;
             text-align: center;
             background: #ddd;
@@ -111,6 +113,8 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.1-dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <title>{% block title %} Wheel Of Life Balance {% endblock%}</title>
 </head>
 <body>
@@ -121,11 +125,9 @@
 
 {% include 'include/_sidebar.html' %}
 
-
-
-<div class="row">
+<div class="row-1">
     <div class="leftcolumn">
-        {% block content%} Content {% endblock %}
+        {% block content %} Content {% endblock %}
     </div>
     <div class="rightcolumn">
         {% include 'include/_media.html' %}

@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
-
+from django.shortcuts import render, get_object_or_404, get_list_or_404,redirect
+from .forms import ArticleForms
 from .models import Article, Comment, Category
 
 
@@ -37,3 +37,17 @@ def get_categories(request, category_id):
                'category': category
                }
     return render(request, 'articles/category.html', context=context)
+
+
+def add_article(request):
+    if request.method == "POST":
+        form = ArticleForms(request.POST)
+        if form.is_valid():
+            Article.objects.create(**form.cleaned_data)
+            articles = form.save()
+            return redirect(articles)
+            # article = Article.objects.create(**form.cleaned_data)
+            # redirect may go us to article redirect (article)
+    else :
+        form = ArticleForms()
+    return render(request, 'articles/add_article.html', {'form': form })

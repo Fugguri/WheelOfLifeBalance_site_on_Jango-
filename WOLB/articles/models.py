@@ -9,7 +9,7 @@ class Article(models.Model):
     redact_date = models.DateTimeField(auto_now=True, verbose_name="Отредактировано")
     photo = models.ImageField(upload_to='photo/%Y/%m/%d/', verbose_name="Фото", blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
-    category = models.ForeignKey("Category", on_delete=models.PROTECT, null=True)
+    category = models.ForeignKey("Category", on_delete=models.PROTECT, null=True, verbose_name="Категории")
 
     def get_absolute_url(self):
         return reverse('article', kwargs={'article_id': self.pk})
@@ -27,6 +27,9 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     author_name = models.CharField('Имя автора', max_length=50)
     comment_text = models.CharField('Текст комментария', max_length=200)
+
+    def get_absolute_url(self):
+        return reverse('comments', kwargs={'article_id': self.pk})
 
     def __str__(self):
         return self.author_name
