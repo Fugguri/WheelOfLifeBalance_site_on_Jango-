@@ -29,7 +29,7 @@ class Comment(models.Model):
     comment_text = models.CharField('Текст комментария', max_length=200)
 
     def get_absolute_url(self):
-        return reverse('comments', kwargs={'article_id': self.pk})
+        return reverse('comments', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.author_name
