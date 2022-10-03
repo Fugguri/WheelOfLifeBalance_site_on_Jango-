@@ -17,5 +17,6 @@
     <p>{{article.article_text|linebreaks|truncatewords:50}}</p>
     <a href="{% url 'article and comments' article.id %}" class="btn btn-primary" align="centre">Читать</a>
 </div>
+<br>
 {% endfor %}
 {% endblock %}
