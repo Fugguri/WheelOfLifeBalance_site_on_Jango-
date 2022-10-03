@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>hello</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI";
+        }
+    </style>
+</head>
+<body>
+
+<script src="//code.jquery.com/jquery-3.4.1.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<!--
+    todo: add weeks (week1, week2, week3, etc...)
+    todo: view all weeks (overview)
+    todo: average
+-->
+
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <div id='div_legend'></div>
+        </td>
+        <td>
+            <canvas id="wheel-of-life" width="600" height="600"></canvas>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="font-size: .9em; margin-bottom: 1em; font-weight: bold;">
+                Please answer the following on a scale of 1-10...
+            </div>
+            <div>
+                <label for="rng_emotion">Emotion</label>
+                <input type="range" min="0" max="10" value="0" id="rng_emotion" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_marriage_romance">Marriage Romance</label>
+                <input type="range" min="0" max="10" value="0" id="rng_marriage_romance" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_family_friends">Family Friends</label>
+                <input type="range" min="0" max="10" value="0" id="rng_family_friends" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_fun_recreation">Fun Recreation</label>
+                <input type="range" min="0" max="10" value="0" id="rng_fun_recreation" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_home_environment">Home Environment</label>
+                <input type="range" min="0" max="10" value="0" id="rng_home_environment" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_personal_growth">Personal Growth</label>
+                <input type="range" min="0" max="10" value="0" id="rng_personal_growth" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_health_appearance">Health Appearance</label>
+                <input type="range" min="0" max="10" value="0" id="rng_health_appearance" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_career">Career</label>
+                <input type="range" min="0" max="10" value="0" id="rng_career" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_financial">Financial</label>
+                <input type="range" min="0" max="10" value="0" id="rng_financial" onchange="update_wheel()">
+            </div>
+            <div>
+                <label for="rng_spiritual">Spiritual</label>
+                <input type="range" min="0" max="10" value="0" id="rng_spiritual" onchange="update_wheel()">
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+
+    const canvas_wheel_of_life = document.getElementById('wheel-of-life');
+    const wheel_of_life = new Chart(canvas_wheel_of_life, {
+        ticks: {
+            maxTicksLimit: 11,
+            stepSize: 1,
+            suggestedMax: 10,
+            scaleOverride: true,
+        },
+        type: 'polarArea',
+        data: {
+            labels: ['Emotional', 'Marriage Romance', 'Family Friends', 'Fun Recreation',
+                'Homework Environment', 'Personal Growth', 'Health Appearance', 'Career', 'Financial',
+                'Spiritual'],
+            datasets: [
+                {
+                    label: "Week 1",
+                    backgroundColor: [
+                        "rgba(254, 242, 0, .6)", "rgba(255, 198, 10, .6)", "rgba(241, 91, 41, .6)",
+                        "rgba(201, 0, 125, .6)", "rgba(96, 45, 142, .6)", "rgba(123, 120, 183, .6)",
+                        "rgba(64, 171, 236, .6)", "rgba(64, 171, 236, .6)", "rgba(48, 166, 83, .6)",
+                        "rgba(177, 211, 64,.6)"
+                    ],
+                    data: [1, 4, 3, 1, 7, 1, 10, 1, 1, 3]
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Wheel of Life'
+            },
+            legend: {
+                display: false
+            },
+            legendCallback: function (chart) {
+                const text = [];
+
+                text.push(`<div style="font-size: 1.25em; text-align: center; border-bottom: 1px solid black;">Dimensions</div>`);
+                for (let i = 0; i < chart.data.labels.length; i++) {
+                    if (chart.data.labels[i] && chart.data.datasets[0].backgroundColor[i]) {
+                        text.push(`
+<div style="margin: .25em;">
+<span
+    style="width: 25px; display: inline-block; background-color: ${chart.data.datasets[0].backgroundColor[i]};">&nbsp;</span>
+    ${chart.data.labels[i]} - ${chart.data.datasets[0].data[i]}
+</div>`);
+                    }
+                }
+                return text.join('');
+            }
+        }
+    });
+
+    //const legend = wheel_of_life.generateLegend();
+    document.getElementById('div_legend').innerHTML = wheel_of_life.generateLegend();
+
+    function update_wheel() {
+        const emotion = document.getElementById('rng_emotion').value;
+        const marriage_romance = document.getElementById('rng_marriage_romance').value;
+        const family_friends = document.getElementById('rng_family_friends').value;
+        const fun_recreation = document.getElementById('rng_fun_recreation').value;
+        const home_environment = document.getElementById('rng_home_environment').value;
+        const personal_growth = document.getElementById('rng_personal_growth').value;
+        const health_appearance = document.getElementById('rng_health_appearance').value;
+        const career = document.getElementById('rng_career').value;
+        const financial = document.getElementById('rng_financial').value;
+        const spiritual = document.getElementById('rng_spiritual').value;
+
+        wheel_of_life.data.datasets[0].data[0] = emotion;
+        wheel_of_life.data.datasets[0].data[1] = marriage_romance;
+        wheel_of_life.data.datasets[0].data[2] = family_friends;
+        wheel_of_life.data.datasets[0].data[3] = fun_recreation;
+        wheel_of_life.data.datasets[0].data[4] = home_environment;
+        wheel_of_life.data.datasets[0].data[5] = personal_growth;
+        wheel_of_life.data.datasets[0].data[6] = health_appearance;
+        wheel_of_life.data.datasets[0].data[7] = career;
+        wheel_of_life.data.datasets[0].data[8] = financial;
+        wheel_of_life.data.datasets[0].data[9] = spiritual;
+
+
+        wheel_of_life.update();
+        document.getElementById('div_legend').innerHTML = wheel_of_life.generateLegend();
+    }
+
+</script>
+
+</body>
+</html>
